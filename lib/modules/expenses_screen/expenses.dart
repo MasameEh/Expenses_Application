@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/expense_model.dart';
 import '../../widgets/expenses_list/expenses_list.dart';
+import '../../widgets/new_expense/new_expense.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -37,9 +38,23 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-      title: Text('ExpenseTracker'),
-        titleSpacing: 100.0,
+        title: const Text('ExpenseTracker'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: ()
+              {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (ctx) => const NewExpense(),
+                  showDragHandle: true,
+                );
+              },
+              icon: const Icon(Icons.add),
+          ),
+        ],
       ),
+
       body: Center(
         child: Column(
           children: [
