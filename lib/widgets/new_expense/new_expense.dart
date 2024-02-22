@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import '../../models/expense_model.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.addNewExpense,});
+
+  final void Function(Expense expense) addNewExpense;
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -117,9 +119,40 @@ class _NewExpenseState extends State<NewExpense> {
                   final double? enteredAmount = double.tryParse(amountController.text);
                   final bool amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
 
-                  if(amountIsInvalid || titleController.text.trim().isEmpty || _selectedDate == null)
+                  if(amountIsInvalid ||
+                      titleController.text.trim().isEmpty ||
+                      _selectedDate == null)
                   {
-
+                    showDialog(
+                        context: context,
+                        builder: (ctx)
+                        {
+                          return AlertDialog(
+                            title: const Text('Invalid input'),
+                            content: Text('Please make sure valid title, amount, date and category'),
+                            actions: [
+                              TextButton(onPressed: ()
+                              {
+                                Navigator.pop(ctx);
+                              },
+                                child: const Text('Okay'),
+                              ),
+                            ],
+                          );
+                        }
+                    );
+                  }
+                  else
+                  {
+                    widget.addNewExpense(
+                        Expense(
+                            title: titleController.text,
+                            amount: enteredAmount,
+                            date: _selectedDate!,
+                            category: _selectedCategory
+                        )
+                    );
+                    Navigator.pop(context);
                   }
                 },
                 child: const Text('Save expense'),

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/expense_model.dart';
+import '../../widgets/chart/chart.dart';
 import '../../widgets/expenses_list/expenses_list.dart';
 import '../../widgets/new_expense/new_expense.dart';
 
@@ -34,6 +35,20 @@ class _ExpensesState extends State<Expenses> {
       title: 'Dahab',
     ),
   ];
+
+  void _addExpense(Expense expense)
+  {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense)
+  {
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -46,7 +61,7 @@ class _ExpensesState extends State<Expenses> {
               {
                 showModalBottomSheet(
                   context: context,
-                  builder: (ctx) => const NewExpense(),
+                  builder: (ctx) => NewExpense(addNewExpense: _addExpense),
                   showDragHandle: true,
                 );
               },
@@ -54,12 +69,12 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-
       body: Center(
         child: Column(
           children: [
+            Chart(expenses: _registeredExpenses),
             Expanded(
-              child: ExpensesList(expenses: _registeredExpenses),
+              child: ExpensesList(expenses: _registeredExpenses, removeExpense: _removeExpense),
             ),
           ],
         ),

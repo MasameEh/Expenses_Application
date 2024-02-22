@@ -6,6 +6,7 @@ const uuid = Uuid();
 
 enum Category {food, travel, leisure, work}
 
+// ignore: constant_identifier_names
 const Map<Category, IconData> CategoryIcon =
 <Category, IconData>{
   Category.food: Icons.lunch_dining,
@@ -18,11 +19,11 @@ final dateTime = DateFormat.yMd();
 
 class Expense
 {
-  late final String id;
-  late final String title;
-  late final double amount;
-  late final DateTime date;
-  late final Category category;
+  final String id;
+  final String title;
+  final double amount;
+  final DateTime date;
+  final Category category;
 
   String get formattedDate
   {
@@ -34,4 +35,28 @@ class Expense
     required this.date,
     required this.category,
   }) : id = uuid.v4();
+}
+
+
+class ExpenseBucket
+{
+  late final Category category;
+  late final List<Expense> expenses;
+
+  ExpenseBucket(this.category, this.expenses);
+
+  ExpenseBucket.forCategory(this.category, List<Expense> allExpenses)
+  {
+    expenses = allExpenses.where((element) => element.category == category).toList();
+  }
+
+  double get totalExpenses
+  {
+    double sum = 0;
+    for(var expense in expenses)
+    {
+      sum = sum + expense.amount;
+    }
+    return sum;
+  }
 }
