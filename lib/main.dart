@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light ,
+      themeMode: ThemeMode.dark,
       theme: ThemeData().copyWith(
         useMaterial3: true,
         colorScheme: myColorScheme,
@@ -48,12 +48,15 @@ class MyApp extends StatelessWidget {
           backgroundColor: myDarkColorScheme.onPrimaryContainer,
           foregroundColor: myDarkColorScheme.onPrimary,
         ),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         cardTheme: const CardTheme().copyWith(
           color: myDarkColorScheme.secondaryContainer,
           margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
 
         ),
-        bottomSheetTheme: BottomSheetThemeData().copyWith(
+        bottomSheetTheme: const BottomSheetThemeData().copyWith(
           backgroundColor: myDarkColorScheme.onPrimaryContainer,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

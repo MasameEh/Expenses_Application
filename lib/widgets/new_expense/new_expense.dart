@@ -41,6 +41,7 @@ class _NewExpenseState extends State<NewExpense> {
           TextField(
             controller: titleController,
             maxLength: 50,
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(
               label: Text('Title'),
@@ -52,6 +53,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: TextField(
                   controller: amountController,
                   keyboardType: TextInputType.number,
+                  style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                   decoration: const InputDecoration(
                     label: Text('Amount'),
                     prefix: Icon(Icons.attach_money),
@@ -61,7 +63,7 @@ class _NewExpenseState extends State<NewExpense> {
               const SizedBox(width: 16.0),
               Row(
                 children: [
-                  Text(_selectedDate != null ? formatter.format(_selectedDate!): 'No Date Selected'),
+                  Text(_selectedDate != null ? formatter.format(_selectedDate!): 'No Date Selected', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
                   IconButton(
                       onPressed: () async
                       {
@@ -90,7 +92,7 @@ class _NewExpenseState extends State<NewExpense> {
                 value: _selectedCategory,
                 items: Category.values.map((e) => DropdownMenuItem(
                   value: e,
-                  child: Text(e.name.toUpperCase()), )
+                  child: Text(e.name.toUpperCase(), style: TextStyle(color: Theme.of(context).colorScheme.secondary),), )
                 ).toList(),
                 onChanged: (newCategory)
                 {
@@ -128,8 +130,11 @@ class _NewExpenseState extends State<NewExpense> {
                         builder: (ctx)
                         {
                           return AlertDialog(
-                            title: const Text('Invalid input'),
-                            content: Text('Please make sure valid title, amount, date and category'),
+                            title: const Text('Invalid input', style:
+                            TextStyle(color: Colors.black)
+                            ),
+                            content: const Text('Please make sure valid title, amount, date and category', style:
+                            TextStyle(color: Colors.black)),
                             actions: [
                               TextButton(onPressed: ()
                               {

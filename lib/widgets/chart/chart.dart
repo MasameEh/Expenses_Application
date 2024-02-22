@@ -8,6 +8,7 @@ class Chart extends StatelessWidget {
 
   final List<Expense> expenses;
 
+
   List<ExpenseBucket> get buckets
   {
     return [
@@ -35,9 +36,12 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       width: double.infinity,
       height: 175.0,
       decoration: BoxDecoration(
@@ -71,7 +75,11 @@ class Chart extends StatelessWidget {
                 buckets.map((e) => Expanded(
                     child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 1),
-                        child: Icon(CategoryIcon[e.category]),
+                        child: Icon(CategoryIcon[e.category],
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).colorScheme.secondary,
+                        ),
                     ),
                   )
                 ).toList(),
