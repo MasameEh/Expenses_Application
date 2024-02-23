@@ -51,6 +51,8 @@ class _ExpensesState extends State<Expenses> {
   }
   @override
   Widget build(BuildContext context) {
+
+    var width =  MediaQuery.of(context).size.width;
     return  Scaffold(
       appBar: AppBar(
         title: const Text('ExpenseTracker'),
@@ -70,9 +72,16 @@ class _ExpensesState extends State<Expenses> {
         ],
       ),
       body: Center(
-        child: Column(
+        child: width < 600 ? Column(
           children: [
-            Chart(expenses: _registeredExpenses),
+            Expanded(child: Chart(expenses: _registeredExpenses)),
+            Expanded(
+              child: ExpensesList(expenses: _registeredExpenses, removeExpense: _removeExpense),
+            ),
+          ],
+        ): Row(
+          children: [
+            Expanded(child: Chart(expenses: _registeredExpenses)),
             Expanded(
               child: ExpensesList(expenses: _registeredExpenses, removeExpense: _removeExpense),
             ),
