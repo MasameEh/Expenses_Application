@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'modules/expenses_screen/expenses.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]
+  ).then((_) => runApp(const MyApp()));
+
 }
 
 var myColorScheme = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 55, 30, 45));
