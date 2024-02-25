@@ -1,4 +1,3 @@
 # expenses_app
 
-mobile application designed to state your expenses and on which category you spend the most
-samples, guidance on mobile development, and a full API reference.
+mobile application designed to state your expenses and on which category you spend the most.
